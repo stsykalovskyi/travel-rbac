@@ -1,0 +1,28 @@
+version: '2.1'
+
+services:
+    db:
+        container_name: users.db
+        image: postgres:12.3
+        environment:
+            POSTGRES_USER: travel_rbac
+            POSTGRES_PASSWORD: travel_rbac
+            POSTGRES_DB: rbac
+        restart: always
+        command: postgres -c port=5432
+        ports:
+            - 1332:5432
+        networks:
+            - docker
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready --dbname=travel_rbac --host=localhost --username=travel_rbac']
+            interval:   5s
+            timeout:    5s
+            retries:    5
+networks:
+    docker:
+        driver: bridge
+        ipam:
+            config:
+                -   subnet: 193.180.0.100/27
+                    gateway: 193.180.0.101
