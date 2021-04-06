@@ -1,4 +1,0 @@
-172.18.0.1 - - [02/Apr/2021:22:41:00 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
-172.18.0.1 - - [02/Apr/2021:22:41:01 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://rbac.backpacker.loc/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
-172.18.0.1 - - [02/Apr/2021:22:48:00 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
-172.18.0.1 - - [02/Apr/2021:22:48:00 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://rbac.backpacker.loc/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"

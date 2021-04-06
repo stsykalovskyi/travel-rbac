@@ -20,6 +20,19 @@ services:
             - "9000:9000"
         build: ./docker/php
         tty: true
+        links:
+            - db
         volumes:
             - ./:/var/www
             - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    db:
+        container_name: rbac.db
+        image: postgres:latest
+        environment:
+            POSTGRES_USER: rbac_docker
+            POSTGRES_PASSWORD: rbac_docker
+            POSTGRES_DB: rbac_docker
+        restart: always
+        command: postgres -c port=5432
+        ports:
+            - 15432:5432

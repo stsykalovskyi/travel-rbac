@@ -1,0 +1,9 @@
+parameters:
+    database.driver: pdo_pgsql
+    database.host: rbac.db
+    database.port: 5432
+    database.name: rbac_docker
+    database.user: rbac_docker
+    database.password: rbac_docker
+    database.schema: rbac
+    database.application_name: rbac
