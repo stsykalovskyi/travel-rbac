@@ -1,7 +1,9 @@
 FROM php:7.4-fpm-alpine
 
 RUN adduser serhii -D -g serhii
-RUN apk add git mc wget gcc libzip-dev zip autoconf postgresql-dev curl make nano --no-cache
+RUN apk add git mc wget npm gcc libzip-dev zip autoconf postgresql-dev curl make nano --no-cache
+RUN npm install bower -g
+RUN npm install sass -g
 RUN docker-php-ext-configure zip && docker-php-ext-install bcmath pdo_pgsql zip
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 RUN mkdir -p /var/www
