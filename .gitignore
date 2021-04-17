@@ -10,3 +10,6 @@
 ###< symfony/framework-bundle ###
 
 .idea
+public/assets/vendor
+node_modules
+docker/nginx/logs

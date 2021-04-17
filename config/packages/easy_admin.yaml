@@ -1,0 +1,8 @@
+easy_admin:
+    entities:
+        Trip:
+            class: App\Entity\Trip
+            list:
+                fields:
+                    - {property: 'resource', type: 'image', base_path: 'public/uploads/images'}
+                    - {property: 'virtualResource', type: 'file_upload', type_options: {upload_dir: 'public/uploads/images',upload_filename: '[uuid].[extension]'}}

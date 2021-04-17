@@ -36,13 +36,16 @@ class UserCreateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-//        $this->em->persist((new User())->setEmail('test@test.com')->setPassword('test'));
         /** @var UserRepository $userRepo */
         $userRepo = $this->em->getRepository(User::class);
         $user = $userRepo->findOneBy(['email' => 'test@test.com']);
-        $userRepo->upgradePassword($user, 'test');
-        $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
-        $this->em->flush();
+        if (empty($user)) {
+            $user = (new User())->setEmail('test@test.com')->setPassword('test');
+            $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+            $userRepo->upgradePassword($user, 'test');
+            $this->em->persist($user);
+            $this->em->flush();
+        }
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 

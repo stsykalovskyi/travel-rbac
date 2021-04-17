@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
           href="{{ asset('assets/custom/bootstrap/css/bootstrap.css') }}?rand={{ random(1000, 10000) }}">
     {# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"> #}
-    <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/fontawesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/slick-carousel/slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/owl.carousel/dist/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/owl.carousel/dist/assets/owl.theme.default.min.css') }}">
     <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/slick-carousel/slick/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/angular/angular.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/angular-owl-carousel2/src/angular-owl-carousel-2.js') }}"></script>
     <title>Главная</title>
     <style>
         body {
@@ -96,18 +99,18 @@
         }
 
         .phone-number a {
-            font-size: 20px !important;
+            font-size: 18px !important;
             padding-right: 2.6rem !important;
             padding-left: 5rem !important;
         }
 
         .login-link {
-            line-height: 0;
             font-size: 14px !important;
             background: white;
             border-radius: 25px;
             color: black !important;
-            padding: 15px 25px;
+            padding: 10px;
+            line-height: 0.8rem;
         }
 
         .main_menu {
@@ -117,29 +120,122 @@
         .main-section {
             background: url("{{ asset('assets/images/background.png') }}");
         }
+
         .excursions-section {
             background: white;
         }
+
         .country_item {
-            background: grey;
+            background: #e4e4e4;
             padding: 5px;
             border-radius: 20px;
-            margin: 10px 20px;
             text-align: center;
             min-width: 110px;
+            cursor: pointer;
         }
+
         .country_item a {
             color: black;
             text-decoration: none;
         }
-        .slick_slide a:active {
-            border: none!important;
+
+        .country_item.active {
+            background: black;
         }
+
+        .slick_slide a:active {
+            border: none !important;
+        }
+
         .big_label1 {
             font-size: 95px;
             font-weight: bold;
             color: white;
             text-align: center;
+        }
+
+        .media-item {
+            margin: 0 15px;
+        }
+
+        .media-inner {
+            background-color: rgba(45, 63, 63, 0.9);
+            padding: 25px;
+            margin: 10px;
+            color: white;
+            line-height: 1.0 !important;
+            font-size: 0.9rem;
+        }
+
+        .big_label1 {
+            margin: 50px 0;
+        }
+
+        .media-inner .fa {
+            color: #ff9a00;
+            margin-right: 10px;
+        }
+
+        .media-items {
+            padding-bottom: 50px;
+        }
+
+        @media screen and (max-width: 1400px) {
+            .phone-number {
+                display: none;
+            }
+
+            .big_label1 {
+                font-size: 70px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .big_label1 {
+                font-size: 40px;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .login-link {
+                background: none;
+            }
+        }
+
+        .excursions-section {
+            padding: 50px 0;
+        }
+
+        .excursion-card {
+            margin: 20px 20px 50px;
+        }
+
+        .excursion-card .excursions-image {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .excursion-desc {
+            line-height: 1.5rem;
+        }
+
+        .excursion-card p {
+            font-size: 14px;
+            line-height: 1.0rem;
+            padding: 5px 0;
+        }
+
+        .excursion-card .price {
+            color: #ff9a00;
+        }
+
+        .excursion-card .excursion-link {
+            background: black;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -182,77 +278,553 @@
                         <a class="nav-link" href="#">+38 054 76 87 53</a>
                     </li>
                     <li class="nav-item pull-right">
-                        <a class="nav-link login-link" href="#">
-                            <span>Личный<br>кабинет</span><i class="glyphicon glyphicon-user"></i>
+                        <a class="nav-link login-link" href="{{ path('dashboard') }}">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div>Личный<br>кабинет</div>
+                                    </td>
+                                    <td>
+                                        <div><span class="fa fa-user fa-2x"></span></div>
+                                    </td>
+                                </tr>
+                            </table>
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
         <h1 class="big_label1">УДИВИТЕЛЬНОЕ РЯДОМ</h1>
-    </div>
-</section>
-<section class="excursions-section">
-    <div class="container">
-        <div class="slider">
-            <div class="country_item"><a href="#">Рим</a></div>
-            <div class="country_item"><a href="#">Польша</a></div>
-            <div class="country_item"><a href="#">Нидерланды</a></div>
-            <div class="country_item"><a href="#">Германия</a></div>
-            <div class="country_item"><a href="#">Украина</a></div>
-            <div class="country_item"><a href="#">Китай</a></div>
-            <div class="country_item"><a href="#">Турция</a></div>
-            <div class="country_item"><a href="#">Египет</a></div>
-            <div class="country_item"><a href="#">Израиль</a></div>
-            <div class="country_item"><a href="#">Австралия</a></div>
-            <div class="country_item"><a href="#">Кацапия</a></div>
-            <div class="country_item"><a href="#">Москаляндия</a></div>
+        <div class="row justify-content-md-center media-items">
+            <div class="col-xl-3 media-item">
+                <div class="media media-inner">
+                    <span class="fa fa-heartbeat fa-3x"></span>
+                    <div class="media-body">
+                        <span>100 000 медиков и людей, которые помогают бороться с коронавирусом, поселятся...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 media-item">
+                <div class="media media-inner">
+                    <span class="fa fa-heartbeat fa-3x"></span>
+                    <div class="media-body">
+                        <span>100 000 медиков и людей, которые помогают бороться с коронавирусом, поселятся...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 media-item">
+                <div class="media media-inner">
+                    <span class="fa fa-heartbeat fa-3x"></span>
+                    <div class="media-body">
+                        <span>100 000 медиков и людей, которые помогают бороться с коронавирусом, поселятся...</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-<section class="template_image">
-    <img src="{{ asset('assets/images/main.jpg') }}"/>
+<section class="excursions-section">
+    <div class="container" ng-controller="carouselController">
+        <data-owl-carousel class="owl-carousel" data-options="||owlOptions||">
+            <div owl-carousel-item="" ng-repeat="(country, cities) in countries track by $index" class="item">
+                <div class="country_item" ng-click="setExcursions(country)">||trans(country)||</div>
+            </div>
+        </data-owl-carousel>
+        <div class="row">
+            <div class="col-xl-4" ng-repeat="excursion in excursionsToShow track by $index">
+                <div class="excursion-card">
+                    <img class="excursions-image" ng-src="||excursion.src||">
+                    <h4 class="excursion-desc">||excursion.subject||</h4>
+                    <p>
+                        Организатор придерживается рекомендаций по безопасности и уборке во время пандемии: соблюдает
+                        правила социального дистанциирования и нормы гигиены...
+                    </p>
+                    <h5>Oт <b class="price">||excursion.price||</b> за человека</h5>
+                    <a class="excursion-link" href="#">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+<section class="top-news-section">
+    <div class="container">
+    </div>
+</section>
+<footer>
+
+</footer>
+{#<section class="template_image">#}
+{#    <img src="{{ asset('assets/images/main.jpg') }}"/>#}
+{#</section>#}
 <script>
-    $(".slider").slick({
-        // normal options...
-        infinite: true,
-        dots: false,
-        slidesToShow: 10,
-        slidesToScroll: 2,
-        nextArrow: "",
-        prevArrow: "",
-        arrows: false,
-        useCSS: false,
-        focusOnSelect: false,
-        customPaging: function (slider, i) {
-            console.log(slider);
-            return(i+1) + '/' + slider.slideCount;
-        },
-
-        // the magic
-        responsive: [{
-
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 3,
-                infinite: true
+    let app = angular.module('app', ['angular-owl-carousel-2']).config(function ($interpolateProvider) {
+        $interpolateProvider.startSymbol('||').endSymbol('||');
+    }).directive("owlCarousel", function () {
+        return {
+            restrict: 'E',
+            transclude: false,
+            link: function (scope) {
+                scope.initCarousel = function (element) {
+                    // provide any default options you want
+                    var defaultOptions = {};
+                    var customOptions = scope.$eval($(element).attr('data-options'));
+                    // combine the two options objects
+                    for (var key in customOptions) {
+                        defaultOptions[key] = customOptions[key];
+                    }
+                    $(element).owlCarousel(defaultOptions);
+                    $(element).owlCarousel().trigger('refresh.owl.carousel');
+                };
             }
-
-        }, {
-
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 2,
-                dots: true
+        };
+    }).directive('owlCarouselItem', [function () {
+        return {
+            restrict: 'A',
+            transclude: false,
+            link: function (scope, element) {
+                // wait for the last item in the ng-repeat then call init
+                if (scope.$last) {
+                    scope.initCarousel(element.parent());
+                }
             }
+        };
+    }]);
+    app.controller('carouselController', function ($scope) {
+        $scope.excursions = {
+            "Australia": {
+                "src": "data:image/jpeg;base64,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",
+                "subject": "Галопом по Исландии",
+                "price": "400 $"
+            },
+            "Italy": {
+                "src": "https://texastravertine.com/wp-content/uploads/2018/07/colosseum.jpg",
+                "subject": "Экскурсия по колизею и виртуальная реальность",
+                "price": "100 $"
+            },
+            "Poland": {
+                "src": "https://cdn24.img.ria.ru/images/07e4/05/1e/1572231233_0:160:3076:1890_600x0_80_0_0_306ce9d761f798479dffcdf56efb6b49.jpg",
+                "subject": "Знайомство з поляками",
+                "price": "100 $"
+            }
+        };
+        $scope.excursionsToShow = [
+            {
+                "src": "https://texastravertine.com/wp-content/uploads/2018/07/colosseum.jpg",
+                "subject": "Экскурсия по колизею и виртуальная реальность",
+                "price": "100 $"
+            },{
+                "src": "https://texastravertine.com/wp-content/uploads/2018/07/colosseum.jpg",
+                "subject": "Экскурсия по колизею и виртуальная реальность",
+                "price": "100 $"
+            },{
+                "src": "https://texastravertine.com/wp-content/uploads/2018/07/colosseum.jpg",
+                "subject": "Экскурсия по колизею и виртуальная реальность",
+                "price": "100 $"
+            },{
+                "src": "https://texastravertine.com/wp-content/uploads/2018/07/colosseum.jpg",
+                "subject": "Экскурсия по колизею и виртуальная реальность",
+                "price": "100 $"
+            },{
+                "src": "https://texastravertine.com/wp-content/uploads/2018/07/colosseum.jpg",
+                "subject": "Экскурсия по колизею и виртуальная реальность",
+                "price": "100 $"
+            },{
+                "src": "https://texastravertine.com/wp-content/uploads/2018/07/colosseum.jpg",
+                "subject": "Экскурсия по колизею и виртуальная реальность",
+                "price": "100 $"
+            }
+        ];
+        $scope.setExcursions = function (country) {
+            console.log(country);
+            let excursions = [];
+            for (let i = 0; i < 6; i++) {
+                let excursion = $scope.excursions[country];
+                console.log(excursion);
+                if (excursion === undefined) {
+                    excursion = $scope.excursions['Poland']
+                }
+                console.log(excursion);
+                excursions.push(excursion);
+            }
+            $scope.excursionsToShow = excursions;
+            console.log(excursions);
+        };
+        $scope.owlOptions = {
+            dots: true,
+            margin: 50,
+            items: 8,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                },
+                1200: {
+                    items: 8
+                }
+            }
+        };
+        $scope.cities = [];
+        $scope.countries = {
+            "Australia": [
+                "Abbotsford",
+                "Abbotsford",
+                "Abbotsham",
+                "Aberdeen",
+                "Aberfoyle",
+                "Aberglasslyn",
+                "Abermain",
+                "Acacia Ridge",
+                "Adamstown",
+                "Adelaide",
+                "Adelong",
+                "Advancetown",
+                "Agnes Banks",
+                "Agnes Water",
+                "Airlie Beach",
+                "Aitkenvale",
+                "Albany",
+                "Albany Creek",
+                "Albert Park",
+                "Alberton",
+                "Alberton",
+                "Albion",
+                "Albion Park",
+                "Albury",
+                "Aldgate",
+                "Aldinga"
+            ],
+            "Belarus": [
+                "Baranovichi",
+                "Borisov",
+                "Brest",
+                "Dzyarzhynsk",
+                "Horki",
+                "Hrodna",
+                "Lahoysk",
+                "Lida",
+                "Lyakhovichi",
+                "Lyaskavichy",
+                "Mazyr",
+                "Minsk",
+                "Mogilev",
+                "Navapolatsk",
+                "Orsha",
+                "Pinsk",
+                "Polatsk",
+                "Radoshkovichi",
+                "Shklow",
+                "Vitebsk",
+                "Zaslawye",
+                "Zhodzina"
+            ],
+            "Canada": [
+                "100 Mile House",
+                "Abbey",
+                "Abbotsford",
+                "Acadia Valley",
+                "Acme",
+                "Acton",
+                "Acton Vale",
+                "Agassiz",
+                "Agincourt",
+                "Ailsa Craig",
+                "Airdrie",
+                "Ajax",
+                "Aklavik",
+                "Alameda",
+                "Albanel",
+                "Alberton",
+                "Aldergrove",
+                "Alert Bay",
+                "Alexander",
+                "Alexandria"
 
-        }, {
-
-            breakpoint: 300,
-            settings: "unslick" // destroys slick
-
-        }]
+            ],
+            "China": [
+                "Aishang",
+                "Aizhou",
+                "Aksu",
+                "Anbang",
+                "Anbu",
+                "Ancheng",
+                "Anda",
+                "Andong",
+                "Angu",
+                "Anguo",
+                "Anhu",
+                "Anji",
+                "Anjiang",
+                "Ankang"
+            ],
+            "Cyprus": [
+                "Agia Anna",
+                "Aradippou",
+                "Ayia Marina",
+                "Chlorakas",
+                "Deryneia",
+                "Famagusta",
+                "Geroskipou",
+                "Kato Lakatamia",
+                "Kato Polemidia",
+                "Kiti",
+                "Kyrenia",
+                "Larnaca",
+                "Laxia",
+                "Limassol",
+                "Livadia",
+                "Morfou",
+                "Mouttagiaka",
+                "Nicosia",
+                "Paphos",
+                "Paralimni",
+                "Parekklisha",
+                "Prodromi",
+                "Sotira",
+                "Strovolos",
+                "Tera"
+            ],
+            "Egypt": [
+                "Abu Hammad",
+                "Al Mahallah al Kubra",
+                "Al Mansurah",
+                "Al Marj",
+                "Alexandria",
+                "Almazah",
+                "Ar Rawdah",
+                "Assiut",
+                "Az Zamalik",
+                "Badr",
+                "Banha",
+                "Bani Suwayf",
+                "Cairo",
+                "Damietta",
+                "Faraskur",
+                "Flaminj",
+                "Giza",
+                "Heliopolis",
+                "Helwan",
+                "Hurghada",
+                "Ismailia",
+                "Kafr ash Shaykh",
+                "Luxor",
+                "Madinat an Nasr",
+                "Madinat as Sadis min Uktubar",
+                "Minya",
+                "Nasr",
+                "New Cairo",
+                "Port Said",
+                "Rafah",
+                "Ramsis",
+                "Sadat",
+                "Shirbin",
+                "Shubra",
+                "Sohag",
+                "Suez",
+                "Tanta",
+                "Toukh",
+                "Zagazig"
+            ],
+            "France": [
+                "Aast",
+                "Abancourt",
+                "Abbans-Dessus",
+                "Abbaretz",
+                "Abbecourt",
+                "Abbeville",
+                "Abbeville-les-Conflans",
+                "Abeilhan",
+                "Abere",
+                "Abergement-Saint-Jean",
+                "Abilly",
+                "Ablain-Saint-Nazaire",
+                "Ablaincourt-Pressoir",
+                "Ablainzevelle",
+                "Ablis",
+                "Ablon-sur-Seine",
+                "Abondance",
+                "Abondant"
+            ],
+            "Germany": [
+                "Aach",
+                "Aach",
+                "Aachen",
+                "Aalen",
+                "Abbensen",
+                "Abberode",
+                "Abenberg",
+                "Abensberg",
+                "Abstatt",
+                "Abtsbessingen",
+                "Abtsgmuend",
+                "Abtswind",
+                "Abtweiler",
+                "Achern",
+                "Achim",
+                "Achstetten",
+                "Adelebsen"
+            ],
+            "Greece": [
+                "Aegina",
+                "Agioi Anargyroi",
+                "Agios Nikolaos",
+                "Agrinio",
+                "Aigaleo",
+                "Aigio",
+                "Alexandreia",
+                "Alexandroupoli",
+                "Aliartos",
+                "Alimos",
+                "Amaliada",
+                "Anavyssos",
+                "Andravida",
+                "Ano Liosia",
+                "Archaia Nemea",
+                "Argos"
+            ],
+            "Haiti": [
+                "Carrefour",
+                "Delmar",
+                "Duverger",
+                "Jacmel",
+                "Masseau",
+                "Moise",
+                "Petionville",
+                "Port-au-Prince",
+                "Prince",
+                "Turgeau"
+            ],
+            "India": [
+                "Abdul",
+                "Adilabad",
+                "Adwani",
+                "Agartala",
+                "Agra",
+                "Ahmedabad",
+                "Ahmednagar",
+                "Aizawl",
+                "Ajabpur",
+                "Ajmer",
+                "Akividu",
+                "Akola"
+            ],
+            "Italy": [
+                "Abano Terme",
+                "Abbadia Lariana",
+                "Abbadia San Salvatore",
+                "Abbasanta",
+                "Abbiategrasso",
+                "Abetone",
+                "Acate",
+                "Acerno"
+            ],
+            "Poland": [
+                "Adama",
+                "Alwernia",
+                "Andrespol",
+                "Andrychow",
+                "Anin",
+                "Annopol",
+                "Arkadia",
+                "Babienica",
+                "Babimost",
+                "Baborow",
+                "Baboszewo",
+                "Balice",
+                "Balice",
+                "Banino"
+            ],
+            "Thailand": [
+                "Amnat Charoen",
+                "Amphawa",
+                "Amphoe Aranyaprathet",
+                "Ang Thong",
+                "Ayutthaya",
+                "Ban Ang Thong",
+                "Ban Bang Phli Nakhon",
+                "Ban Bang Plong",
+                "Ban Bueng",
+                "Ban Don Sak",
+                "Ban Hua Thale",
+                "Ban Khlong Ngae",
+                "Ban Khlong Prasong",
+                "Ban Khlong Prawet",
+                "Ban Khlong Takhian",
+                "Ban Ko Pao"
+            ],
+            "Tunisia": [
+                "Ariana",
+                "Beja",
+                "Gafsa",
+                "Hammamet",
+                "Le Bardo",
+                "Manouba",
+                "Monastir",
+                "Rades",
+                "Sfax",
+                "Sidi Bouzid",
+                "Sousse",
+                "Tunis"
+            ],
+            "Turkey": [
+                "Abdullah",
+                "Acibadem",
+                "Ada",
+                "Adana",
+                "Adnan Menderes",
+                "Afyonkarahisar",
+                "Akhisar",
+                "Aksaray",
+                "Alanya",
+                "Alpaslan",
+                "Amasra",
+                "Amasya",
+                "Andac",
+                "Ankara",
+                "Antakya",
+                "Antalya",
+                "Ardahan",
+                "Artvin",
+                "Atakoy",
+                "Ataturk"
+            ],
+            "Ukraine": [
+                "Alupka",
+                "Alushta",
+                "Babin",
+                "Barashivka",
+                "Baryshivka",
+                "Belaya",
+                "Berdychiv",
+                "Berehove"
+            ]
+        };
+        $scope.translations = {
+            "Australia": "Австралия",
+            "Belarus": "Беларусь",
+            "Canada": "Канада",
+            "China": "Китай",
+            "Cyprus": "Кипр",
+            "Egypt": "Египет",
+            "France": "Франция",
+            "Germany": "Германия",
+            "Greece": "Греция",
+            "Haiti": "Гаити",
+            "India": "Индия",
+            "Italy": "Италия",
+            "Poland": "Польша",
+            "Thailand": "Тайланд",
+            "Tunisia": "Тунис",
+            "Turkey": "Турция",
+            "Ukraine": "Украина"
+        }
+        $scope.trans = function (word) {
+            return $scope.translations[word];
+        }
     });
 </script>
 </body>
