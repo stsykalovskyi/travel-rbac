@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Статьи{% endblock %}
+{% block body %}
+    <section class="main-section">
+        <div class="container">
+            {% include 'parts/menu.html.twig' %}
+            <h1 class="big_label1">Статьи</h1>
+            <div class="row justify-content-md-center media-items">
+                <div class="col-xl-3 media-item">
+                    <div class="media media-inner">
+                        <span class="fa fa-heartbeat fa-3x"></span>
+                        <div class="media-body">
+                            <span>100 000 медиков и людей, которые помогают бороться с коронавирусом, поселятся...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 media-item">
+                    <div class="media media-inner">
+                        <span class="fa fa-heartbeat fa-3x"></span>
+                        <div class="media-body">
+                            <span>100 000 медиков и людей, которые помогают бороться с коронавирусом, поселятся...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 media-item">
+                    <div class="media media-inner">
+                        <span class="fa fa-heartbeat fa-3x"></span>
+                        <div class="media-body">
+                            <span>100 000 медиков и людей, которые помогают бороться с коронавирусом, поселятся...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h1>Страница находится в разработке</h1>
+            {{ app.request.get('_route') }}
+        </div>
+    </section>
+{% endblock %}

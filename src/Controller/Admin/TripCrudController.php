@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Trip;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -22,6 +23,7 @@ class TripCrudController extends AbstractCrudController
         return [
             ImageField::new('resource')->setBasePath('/uploads/images')->setUploadDir('public/uploads/images'),
             TextField::new('subject'),
+            CountryField::new('country'),
             TextEditorField::new('description'),
             MoneyField::new('price')->setCurrency('UAH')
         ];

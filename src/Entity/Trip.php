@@ -34,6 +34,11 @@ class Trip
      */
     private int $price;
 
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     */
+    private string $country;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,6 +85,17 @@ class Trip
     public function setPrice(int $price): self
     {
         $this->price = $price;
+        return $this;
+    }
+
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
         return $this;
     }
 }

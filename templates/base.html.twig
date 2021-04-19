@@ -1,19 +1,257 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block stylesheets %}
+        <link rel="stylesheet"
+              href="{{ asset('assets/custom/bootstrap/css/bootstrap.css') }}?rand={{ random(1000, 10000) }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendor/owl.carousel/dist/assets/owl.carousel.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendor/owl.carousel/dist/assets/owl.theme.default.min.css') }}">
+    {% endblock %}
+    {% block javascript_head %}
+        <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/angular/angular.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/angular-owl-carousel2/src/angular-owl-carousel-2.js') }}"></script>
+        <script src="{{ asset('assets/vendor/angular-sanitize/angular-sanitize.min.js') }}"></script>
+    {% endblock %}
+    <title>{% block title %}Welcome{% endblock %}</title>
+    <style>
+    {% block styles %}
+            body {
+                margin: 0;
+            }
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+            .template_image {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+                z-index: 1;
+            }
+
+            .template_image img {
+                width: 100%;
+                height: auto;
+            }
+
+            .container {
+                z-index: 2;
+                position: relative;
+                top: 0;
+                left: 0;
+            }
+
+            .content a {
+                color: red;
+            }
+
+            .logo_link:hover {
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            .logo_link {
+                font-size: 30px;
+                padding: 25px 5rem 25px 1px !important;
+            }
+
+            .logo_link .logo_text1 {
+                color: #ff9a00 !important;
+                font-weight: bolder !important;
+            }
+
+            .logo_link .logo_text2 {
+                font-weight: bolder !important;
+                color: white !important;
+            }
+
+            .login_button {
+                color: black;
+                background: white;
+                padding: 15px 20px;
+                border-radius: 25px;
+            }
+
+            .dropdown.language {
+            }
+
+            .dropdown.language .btn-secondary {
+                background: none;
+                border: none;
+                padding: 35px 0;
+            }
+
+            .dropdown.language a {
+                color: black;
+            }
+
+            .dropdown.language a:active {
+                border: none;
+            }
+
+            .navbar .nav-link {
+                font-size: 15px;
+            }
+
+            .language {
+                font-size: 20px;
+            }
+
+            .phone-number a {
+                font-size: 18px !important;
+                padding-right: 2.6rem !important;
+                padding-left: 5rem !important;
+            }
+
+            .login-link {
+                font-size: 14px !important;
+                background: white;
+                border-radius: 25px;
+                color: black !important;
+                padding: 10px;
+                line-height: 0.8rem;
+            }
+
+            .main_menu {
+                border-bottom: 1px solid #2d3438;
+            }
+
+            .main-section {
+                background: url("{{ asset('assets/images/background.png') }}");
+            }
+
+            .excursions-section {
+                background: white;
+            }
+
+            .country_item {
+                background: #e4e4e4;
+                padding: 5px;
+                border-radius: 20px;
+                text-align: center;
+                min-width: 110px;
+                cursor: pointer;
+            }
+
+            .country_item a {
+                color: black;
+                text-decoration: none;
+            }
+
+            .country_item.active {
+                background: black;
+            }
+
+            .slick_slide a:active {
+                border: none !important;
+            }
+
+            .big_label1 {
+                font-size: 95px;
+                font-weight: bold;
+                color: white;
+                text-align: center;
+            }
+
+            .media-item {
+                margin: 0 15px;
+            }
+
+            .media-inner {
+                background-color: rgba(45, 63, 63, 0.9);
+                padding: 25px;
+                margin: 10px;
+                color: white;
+                line-height: 1.0 !important;
+                font-size: 0.9rem;
+            }
+
+            .big_label1 {
+                margin: 50px 0;
+            }
+
+            .media-inner .fa {
+                color: #ff9a00;
+                margin-right: 10px;
+            }
+
+            .media-items {
+                padding-bottom: 50px;
+            }
+
+            @media screen and (max-width: 1400px) {
+                .phone-number {
+                    display: none;
+                }
+
+                .big_label1 {
+                    font-size: 70px;
+                }
+            }
+
+            @media screen and (max-width: 768px) {
+                .big_label1 {
+                    font-size: 40px;
+                }
+            }
+
+            @media screen and (max-width: 1000px) {
+                .login-link {
+                    background: none;
+                }
+            }
+
+            .excursions-section {
+                padding: 50px 0;
+            }
+
+            .excursion-card {
+                margin: 20px 20px 50px;
+            }
+
+            .excursion-card .excursions-image {
+                width: 100%;
+                border-radius: 20px;
+            }
+
+            .excursion-desc {
+                line-height: 1.5rem;
+            }
+
+            .excursion-card p {
+                font-size: 14px;
+                line-height: 1.0rem;
+                padding: 5px 0;
+            }
+
+            .excursion-card .price {
+                color: #ff9a00;
+            }
+
+            .excursion-card .excursion-link {
+                background: black;
+                color: white;
+                padding: 10px 25px;
+                border-radius: 20px;
+                text-decoration: none;
+                font-size: 14px;
+            }
+    {% endblock %}
+    </style>
+</head>
+<body>
+{% block body %}
+{% endblock %}
+{#<section class="template_image">#}
+{#    <img src="{{ asset('assets/images/main.jpg') }}"/>#}
+{#</section>#}
+{% block scripts_bottom %}
+{% endblock %}
+</body>
 </html>

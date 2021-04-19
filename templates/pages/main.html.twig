@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная{% endblock %}
+{% block body %}
+    <section class="main-section">
+        <div class="container">
+            {% include 'parts/menu.html.twig' %}
+            <h1 class="big_label1">УДИВИТЕЛЬНОЕ РЯДОМ</h1>
+            <div class="row justify-content-md-center media-items">
+                <div class="col-xl-3 media-item">
+                    <div class="media media-inner">
+                        <span class="fa fa-heartbeat fa-3x"></span>
+                        <div class="media-body">
+                            <span>100 000 медиков и людей, которые помогают бороться с коронавирусом, поселятся...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 media-item">
+                    <div class="media media-inner">
+                        <span class="fa fa-heartbeat fa-3x"></span>
+                        <div class="media-body">
+                            <span>100 000 медиков и людей, которые помогают бороться с коронавирусом, поселятся...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 media-item">
+                    <div class="media media-inner">
+                        <span class="fa fa-heartbeat fa-3x"></span>
+                        <div class="media-body">
+                            <span>100 000 медиков и людей, которые помогают бороться с коронавирусом, поселятся...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="excursions-section">
+        <div class="container" ng-controller="carouselController">
+            {% include 'parts/main_excursions_section.html.twig' %}
+        </div>
+    </section>
+    <section class="top-news-section">
+        <div class="container">
+            {% include 'parts/main_news_section.html.twig' %}
+        </div>
+    </section>
+    <footer>
+
+    </footer>
+{% endblock %}
+
+{% block scripts_bottom %}
+    {% include 'angular/main_page.html.twig' %}
+{% endblock %}

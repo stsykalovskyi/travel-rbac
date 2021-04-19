@@ -1,0 +1,16 @@
+<data-owl-carousel class="owl-carousel" data-options="||owlOptions||">
+    <div owl-carousel-item="" ng-repeat="(key, country) in countries track by $index" class="item">
+        <div class="country_item" ng-click="setExcursions(country.country)">||trans(country.country)||</div>
+    </div>
+</data-owl-carousel>
+<div class="row">
+    <div class="col-xl-4" ng-repeat="excursion in excursions track by $index">
+        <div class="excursion-card">
+            <img class="excursions-image" ng-src="/uploads/images/||excursion.resource||">
+            <h4 class="excursion-desc">||excursion.subject||</h4>
+            <p ng-bind-html="excursion.description"></p>
+            <h5>Oт <b class="price">||excursion.price||</b> за человека</h5>
+            <a class="excursion-link" href="#">Подробнее</a>
+        </div>
+    </div>
+</div>

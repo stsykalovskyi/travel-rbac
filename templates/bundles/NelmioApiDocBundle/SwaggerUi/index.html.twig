@@ -1,0 +1,21 @@
+{% extends '@!NelmioApiDoc/SwaggerUi/index.html.twig' %}
+{% block meta %}
+    {{ parent() }}
+    <link rel="Shortcut Icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+{% endblock meta %}
+
+{% block title %}BKPR ApiDoc{% endblock title %}
+
+{% block header %}
+{#    <a id="logo" href="{{ path('main') }}" target="_blank">#}
+{#        <img src="" alt="BackPackers">#}
+{#    </a>#}
+{% endblock header %}
+
+{% block swagger_ui %}
+    {{ parent() }}
+    <div class="swagger-ui-wrap" style="margin-top: 20px; margin-bottom: 20px; text-align: center">
+        &copy; {{ 'now'|date("Y") }} BackPackers. All Rights Reserved.
+    </div>
+{% endblock %}

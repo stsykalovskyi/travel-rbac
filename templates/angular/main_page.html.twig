@@ -1,0 +1,88 @@
+<script>
+    let app = angular.module('app', ['angular-owl-carousel-2', 'ngSanitize']).config(function ($interpolateProvider) {
+        $interpolateProvider.startSymbol('||').endSymbol('||');
+    }).directive("owlCarousel", function () {
+        return {
+            restrict: 'E',
+            transclude: false,
+            link: function (scope) {
+                scope.initCarousel = function (element) {
+                    // provide any default options you want
+                    var defaultOptions = {};
+                    var customOptions = scope.$eval($(element).attr('data-options'));
+                    // combine the two options objects
+                    for (var key in customOptions) {
+                        defaultOptions[key] = customOptions[key];
+                    }
+                    $(element).owlCarousel(defaultOptions);
+                    $(element).owlCarousel().trigger('refresh.owl.carousel');
+                };
+            }
+        };
+    }).directive('owlCarouselItem', [function () {
+        return {
+            restrict: 'A',
+            transclude: false,
+            link: function (scope, element) {
+                // wait for the last item in the ng-repeat then call init
+                if (scope.$last) {
+                    scope.initCarousel(element.parent());
+                }
+            }
+        };
+    }]);
+    app.controller('carouselController', function ($scope, $http) {
+        $scope.excursions = [];
+        $scope.excursionsToShow = [];
+        $scope.setExcursions = function (country) {
+            $http.get('api/trips/search-by?' + 'filter[country]=' + country).then(
+                function (response) {
+                    $scope.excursions = response.data;
+                    console.log(response.data);
+                }
+            );
+        };
+        $scope.owlOptions = {
+            dots: true,
+            autoplay: true,
+            margin: 50,
+            items: 8,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                },
+                1200: {
+                    items: 8
+                }
+            }
+        };
+        $scope.cities = [];
+        $scope.countries = [];
+        $scope.translations = {
+            "NL": 'Нидерланды',
+            "EG": 'Египет',
+            "HU": 'Венгрия',
+            "HK": 'Гонг-конг',
+            "US": 'Штаты',
+            "MV": 'Мальдивы',
+            "JM": 'Ямайка',
+            "IL": 'Израйль',
+            "IT": 'Италия',
+            "TR": 'Турция',
+
+        }
+        $scope.trans = function (word) {
+            return $scope.translations[word];
+        }
+        $http.get('api/trips/countries').then(function (response) {
+            console.log(response.data);
+            $scope.countries = response.data;
+        });
+    });
+</script>

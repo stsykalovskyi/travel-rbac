@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light main_menu">
+    <a class="navbar-brand logo_link" href="{{ path('main') }}">
+        <span class="logo_text1">БЭК</span><span class="logo_text2">ПЕКЕР</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item{% if app.request.get('_route') == 'actions' %} active{% endif %}">
+                <a class="nav-link" href="{{ path('actions') }}">АКЦИИ<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item{% if app.request.get('_route') == 'posts' %} active{% endif %}">
+                <a class="nav-link" href="{{ path('posts') }}">СТАТЬИ</a>
+            </li>
+            <li class="nav-item{% if app.request.get('_route') == 'contacts' %} active{% endif %}">
+                <a class="nav-link" href="{{ path('contacts') }}">КОНТАКТЫ</a>
+            </li>
+            <li class="nav-item{% if app.request.get('_route') == 'popular' %} active{% endif %}">
+                <a class="nav-link" href="{{ path('popular') }}">ПОПУЛЯРНЫЕ ТУРЫ</a>
+            </li>
+{#            <li class="nav-item dropdown">#}
+{#                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"#}
+{#                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                    <i class="glyphicon glyphicon-globe language"></i>#}
+{#                </a>#}
+{#                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">#}
+{#                    <a class="dropdown-item" href="#">Русский</a>#}
+{#                    <a class="dropdown-item" href="#">English</a>#}
+{#                </div>#}
+{#            </li>#}
+            <li class="nav-item pull-right phone-number">
+                <a class="nav-link" href="#">+38 054 76 87 53</a>
+            </li>
+            <li class="nav-item pull-right">
+                <a class="nav-link login-link" href="{{ path('dashboard') }}">
+                    <table>
+                        <tr>
+                            <td>
+                                <div>Личный<br>кабинет</div>
+                            </td>
+                            <td>
+                                <div><span class="fa fa-user fa-2x"></span></div>
+                            </td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
