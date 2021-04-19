@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-xl-4" ng-repeat="excursion in excursions track by $index">
         <div class="excursion-card">
-            <img class="excursions-image" ng-src="/uploads/images/||excursion.resource||">
+            <img class="excursions-image" ng-src="/assets/images/||excursion.resource||">
             <h4 class="excursion-desc">||excursion.subject||</h4>
             <p ng-bind-html="excursion.description"></p>
             <h5>Oт <b class="price">||excursion.price||</b> за человека</h5>
