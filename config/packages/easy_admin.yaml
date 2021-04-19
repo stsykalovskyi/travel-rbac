@@ -4,5 +4,5 @@ easy_admin:
             class: App\Entity\Trip
             list:
                 fields:
-                    - {property: 'resource', type: 'image', base_path: 'public/uploads/images'}
+                    - {property: 'resource', type: 'image', base_path: 'public/assets/images'}
                     - {property: 'virtualResource', type: 'file_upload', type_options: {upload_dir: 'public/uploads/images',upload_filename: '[uuid].[extension]'}}
