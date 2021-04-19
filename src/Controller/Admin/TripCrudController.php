@@ -21,7 +21,7 @@ class TripCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            ImageField::new('resource')->setBasePath('/uploads/images')->setUploadDir('public/uploads/images'),
+            ImageField::new('resource')->setBasePath('/uploads/images')->setUploadDir('public/assets/images'),
             TextField::new('subject'),
             CountryField::new('country'),
             TextEditorField::new('description'),
