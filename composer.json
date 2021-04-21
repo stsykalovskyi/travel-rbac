@@ -1,4 +1,6 @@
 {
+    "description": "backpackers",
+    "name": "stsykalovskyi/bkpr-rbac",
     "type": "project",
     "license": "proprietary",
     "require": {

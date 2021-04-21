@@ -9,6 +9,7 @@ services:
             - "443:443"
         volumes:
             - ./docker/nginx/site.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./docker/nginx/logs:/var/log/nginx
             - ./:/var/www
         links:
@@ -18,8 +19,6 @@ services:
     php:
         container_name: rbac.php
         user: serhii
-        ports:
-            - "9000:9000"
         build: ./docker/php
         tty: true
         links:
