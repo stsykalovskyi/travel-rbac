@@ -4,4 +4,16 @@ easy_admin:
             class: App\Entity\Trip
             list:
                 fields:
-                    - {property: 'resource', type: 'image', base_path: 'public/uploads/images'}
+                    - 'author'
+        Article:
+            class: App\Entity\Article
+            list:
+                fields:
+                    - 'author'
+        User:
+            class: App\Entity\User
+            edit:
+                item_permission: 'ROLE_HUMAN_RESOURCE'
+            list:
+                fields:
+                    - {property: 'password', type: 'password'}

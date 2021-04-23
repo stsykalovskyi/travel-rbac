@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\TripRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * @ORM\Entity(repositoryClass=TripRepository::class)
@@ -35,6 +37,12 @@ class Trip
     private int $price;
 
     /**
+     * @ManyToOne(targetEntity="App\Entity\User", inversedBy="trips")
+     * @JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private User $author;
+
+    /**
      * @ORM\Column(type="string", length=128, nullable=true)
      */
     private string $country;
@@ -42,6 +50,17 @@ class Trip
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor($author): self
+    {
+        $this->author = $author;
+        return $this;
     }
 
     public function getResource(): string

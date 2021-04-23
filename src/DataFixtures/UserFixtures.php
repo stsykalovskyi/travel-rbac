@@ -14,20 +14,20 @@ class UserFixtures extends Fixture
 
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
-        $this->passwordEncoder = $encoder;
+        $this->passwordEncoder  = $encoder;
     }
 
     public function load(ObjectManager $manager)
     {
         $user = new User();
-        $user->setEmail('test@test.com')
+        $user
+            ->setEmail(getenv('ADMIN_EMAIL'))
             ->setRoles([
-                'ROLE_USER',
                 'ROLE_ADMIN'
             ]);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'test'
+            getenv('ADMIN_PASSWORD')
         ));
         // $product = new Product();
          $manager->persist($user);

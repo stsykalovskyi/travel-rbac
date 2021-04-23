@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -20,20 +23,30 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @OneToMany(targetEntity="App\Entity\Article", mappedBy="author")
+     */
+    private $articles;
+
+    /**
+     * @OneToMany(targetEntity="App\Entity\Trip", mappedBy="author")
+     */
+    private $trips;
+
+    /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     public function getId(): ?int
     {
@@ -74,6 +87,11 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    public function addRole(string $role)
+    {
+        $this->roles[] = $role;
+    }
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -86,7 +104,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -105,6 +123,11 @@ class User implements UserInterface
     public function getSalt(): ?string
     {
         return null;
+    }
+
+    public function __toString()
+    {
+        return 'user';
     }
 
     /**

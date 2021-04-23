@@ -5,6 +5,8 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -39,8 +41,8 @@ class Article
     private string $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
+     * @JoinColumn(name="author_id", referencedColumnName="id")
      */
     private User $author;
 
